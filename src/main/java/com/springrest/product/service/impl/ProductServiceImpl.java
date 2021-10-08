@@ -1,5 +1,6 @@
 package com.springrest.product.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,11 +43,6 @@ public class ProductServiceImpl implements ProductService {
 		String message = Constants.SUCCESS;
 		Integer code = Constants.SUCCESS_CODE;
 
-		if (null == dto.getSku()) {
-			code = Constants.NOT_EXIST_CODE;
-			message = Constants.PRODUCT_NOT_EXIST;
-		}
-
 		return new ServiceResponseDTO<>(code, message, dto);
 	}
 
@@ -54,17 +50,16 @@ public class ProductServiceImpl implements ProductService {
 	public ServiceResponseDTO<List<ProductDTO>> getAllProducts() {
 
 		List<ProductEntity> entityList = productRepository.getAllProducts();
-
-		List<ProductDTO> dtoList = entityList.stream().map(dto -> modelMapper.map(dto, ProductDTO.class))
-				.collect(Collectors.toList());
-
 		String message = Constants.SUCCESS;
 		Integer code = Constants.SUCCESS_CODE;
-
-		if (dtoList.isEmpty()) {
+		if (entityList.isEmpty()) {
 			code = Constants.NO_CONTENT_CODE;
 			message = Constants.NO_CONTENT;
+			return new ServiceResponseDTO<>(code, message, new ArrayList<>());
 		}
+		
+		List<ProductDTO> dtoList = entityList.stream().map(dto -> modelMapper.map(dto, ProductDTO.class))
+				.collect(Collectors.toList());
 
 		return new ServiceResponseDTO<>(code, message, dtoList);
 	}

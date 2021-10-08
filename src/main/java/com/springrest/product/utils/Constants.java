@@ -15,7 +15,20 @@ public class Constants {
 	public static final String CREATED = "Created";
 	public static final String UPDATED = "Updated";
 	public static final String NO_CONTENT = "No content";
-
+	
+	//ProductValidations
+	public static final int PRODUCT_MIN_SKU = 11;
+	public static final int PRODUCT_MAX_SKU = 12;
+	
+	public static final String MIN_PRICE = "1.00";
+	public static final String MAX_PRICE = "99999999.00";
+	
+	public static final int MIN_SIZE_NAME = 3;
+	public static final int MAX_SIZE_NAME = 50;
+			
+	public static final int MIN_SIZE_BRAND = 3;
+	public static final int MAX_SIZE_BRAND = 50;
+	
 	// error codes
 	public static final Integer NOT_EXIST_CODE = 404;
 	public static final Integer BAD_REQUEST_CODE = 400;

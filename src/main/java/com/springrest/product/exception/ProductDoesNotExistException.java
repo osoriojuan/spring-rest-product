@@ -16,9 +16,5 @@ public class ProductDoesNotExistException extends RuntimeException {
 		this.code = code;
 	}
 
-	public ProductDoesNotExistException(String message, Integer code, Throwable cause) {
-		super(message, cause);
-		this.code = code;
-	}
 
 }

@@ -17,9 +17,4 @@ public class ProductAlreadyExistException extends RuntimeException {
 		this.code = code;
 	}
 
-	public ProductAlreadyExistException(String message, Integer code, Throwable cause) {
-		super(message, cause);
-		this.code = code;
-	}
-
 }

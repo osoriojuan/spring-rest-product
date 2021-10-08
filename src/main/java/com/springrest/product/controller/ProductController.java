@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springrest.product.dto.ProductDTO;
 import com.springrest.product.dto.ServiceResponseDTO;
 import com.springrest.product.service.ProductService;
+import com.springrest.product.utils.Constants;
 import com.springrest.product.utils.RegularExpressions;
 import com.springrest.product.utils.ValidationMessages;
 
@@ -42,7 +43,10 @@ public class ProductController {
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductDTO> getProductById(
-			@PathVariable("id") @Pattern(regexp = RegularExpressions.SKU, message = ValidationMessages.INVALID_FORMAT) @Size(min = 11, message = ValidationMessages.INVALID_RANGE) @Size(max = 12, message = ValidationMessages.INVALID_RANGE) String id) {
+			@PathVariable("id")
+			@Pattern(regexp = RegularExpressions.SKU, message = ValidationMessages.INVALID_FORMAT)
+			@Size(min = Constants.PRODUCT_MIN_SKU, message = ValidationMessages.INVALID_RANGE)
+			@Size(max = Constants.PRODUCT_MAX_SKU, message = ValidationMessages.INVALID_RANGE) String id) {
 
 		ServiceResponseDTO<ProductDTO> response = productService.getProductById(id);
 
@@ -58,7 +62,9 @@ public class ProductController {
 	}
 
 	@PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ProductDTO> addProduct(@RequestBody @Valid ProductDTO body) {
+	public ResponseEntity<ProductDTO> addProduct(
+			@RequestBody
+			@Valid ProductDTO body) {
 
 		ServiceResponseDTO<ProductDTO> response = productService.addProduct(body);
 
@@ -66,7 +72,9 @@ public class ProductController {
 	}
 
 	@PutMapping(value = "/put", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ProductDTO> updateOrCreateProduct(@RequestBody @Valid ProductDTO body) {
+	public ResponseEntity<ProductDTO> updateOrCreateProduct(
+			@RequestBody
+			@Valid ProductDTO body) {
 
 		ServiceResponseDTO<ProductDTO> response = productService.updateOrCreateProduct(body);
 
@@ -74,7 +82,9 @@ public class ProductController {
 	}
 
 	@PatchMapping(value = "/patch", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ProductDTO> updateProduct(@RequestBody @Valid ProductDTO body) {
+	public ResponseEntity<ProductDTO> updateProduct(
+			@RequestBody
+			@Valid ProductDTO body) {
 
 		ServiceResponseDTO<ProductDTO> response = productService.updateProduct(body);
 
@@ -82,9 +92,12 @@ public class ProductController {
 
 	}
 
-	@DeleteMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> deleteProduct(
-			@PathVariable("id") @Pattern(regexp = RegularExpressions.SKU, message = ValidationMessages.INVALID_FORMAT) @Size(min = 11, message = ValidationMessages.INVALID_RANGE) @Size(max = 12, message = ValidationMessages.INVALID_RANGE) String id) {
+			@PathVariable("id") 
+			@Pattern(regexp = RegularExpressions.SKU, message = ValidationMessages.INVALID_FORMAT)
+			@Size(min = Constants.PRODUCT_MIN_SKU, message = ValidationMessages.INVALID_RANGE)
+			@Size(max = Constants.PRODUCT_MAX_SKU, message = ValidationMessages.INVALID_RANGE) String id) {
 
 		ServiceResponseDTO<Void> response = productService.deleteProduct(id);
 
