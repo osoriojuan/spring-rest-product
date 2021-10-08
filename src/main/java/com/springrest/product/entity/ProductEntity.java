@@ -14,7 +14,7 @@ public class ProductEntity {
 	private String name;
 	private String brand;
 	private String size;
-	private Float price;
+	private String price;
 	private String principalImage;
 	private String otherImages;
 	

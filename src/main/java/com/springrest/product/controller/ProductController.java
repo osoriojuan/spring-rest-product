@@ -3,10 +3,14 @@ package com.springrest.product.controller;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springrest.product.dto.ProductDTO;
 import com.springrest.product.dto.ServiceResponseDTO;
 import com.springrest.product.service.ProductService;
+import com.springrest.product.utils.RegularExpressions;
+import com.springrest.product.utils.ValidationMessages;
 
 @RestController
 @RequestMapping(path = "/product")
+@Validated
 public class ProductController {
 
 	private ProductService productService;
@@ -34,7 +41,8 @@ public class ProductController {
 	}
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ProductDTO> getProductById(@PathVariable String id) {
+	public ResponseEntity<ProductDTO> getProductById(
+			@PathVariable("id") @Pattern(regexp = RegularExpressions.SKU, message = ValidationMessages.INVALID_FORMAT) @Size(min = 11, message = ValidationMessages.INVALID_RANGE) @Size(max = 12, message = ValidationMessages.INVALID_RANGE) String id) {
 
 		ServiceResponseDTO<ProductDTO> response = productService.getProductById(id);
 
@@ -67,20 +75,21 @@ public class ProductController {
 
 	@PatchMapping(value = "/patch", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProductDTO> updateProduct(@RequestBody @Valid ProductDTO body) {
-		
+
 		ServiceResponseDTO<ProductDTO> response = productService.updateProduct(body);
 
 		return ResponseEntity.status(response.getStatusCode()).body(response.getData());
-		
+
 	}
 
-	@PutMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
+	@DeleteMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> deleteProduct(
+			@PathVariable("id") @Pattern(regexp = RegularExpressions.SKU, message = ValidationMessages.INVALID_FORMAT) @Size(min = 11, message = ValidationMessages.INVALID_RANGE) @Size(max = 12, message = ValidationMessages.INVALID_RANGE) String id) {
 
 		ServiceResponseDTO<Void> response = productService.deleteProduct(id);
 
 		return ResponseEntity.status(response.getStatusCode()).body(response.getData());
-		
+
 	}
 
 }
