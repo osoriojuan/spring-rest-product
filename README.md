@@ -10,7 +10,7 @@ You must have the latest version of maven installed and at least java 11
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Installed if you haven't https://maven.apache.org/install.html](https://maven.apache.org/install.html)
 2. Clone the repo
    ```sh
    git clone https://github.com/osoriojuan/spring-rest-product.git
@@ -23,3 +23,4 @@ You must have the latest version of maven installed and at least java 11
    ```sh
    mvn spring-boot:run
    ```
+5. Import the collection file `PRODUCT API.postman_collection.json` that is in the root of the repository and try!
