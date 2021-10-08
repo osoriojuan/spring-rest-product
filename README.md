@@ -23,4 +23,4 @@ You must have the latest version of maven installed and at least java 11
    ```sh
    mvn spring-boot:run
    ```
-5. Import the collection file `PRODUCT API.postman_collection.json` that is in the root of the repository and try!
+5. Import in postman the collection file `PRODUCT API.postman_collection.json` that is in the root of the repository and try!
